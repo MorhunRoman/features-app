@@ -1,0 +1,9 @@
+<div class="dialog-content">
+  <h2 mat-dialog-title class="dialog-title">{{dialogData.label}}</h2>
+
+  <div class="dialog-actions">
+    <button mat-stroked-button (click)="close(dialogActions.CANCEL)">Cancel</button>
+    <button mat-stroked-button color="primary" (click)="close(dialogActions.APPROVE)">Confirm</button>
+  </div>
+
+</div>

@@ -1,0 +1,10 @@
+<div class="actions-list">
+  <ng-container *ngFor="let actionItem of actionsList">
+    <button mat-stroked-button
+            [color]="actionItem.colorScheme"
+            (click)="actionEvent.emit(actionItem.action)"
+    >
+      {{actionItem.label}}
+    </button>
+  </ng-container>
+</div>

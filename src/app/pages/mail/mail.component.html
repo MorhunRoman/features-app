@@ -1,0 +1,31 @@
+<div class="mail-page">
+  <div class="mail-header">
+    <h2 class="mail-header-text">Mails</h2>
+    <div class="mail-header-action">
+      <button mat-stroked-button color="accent" (click)="openViewMailModal(modalActions.CREATE)">Create</button>
+    </div>
+  </div>
+
+  <div class="items-list" *ngIf="(mailsList$ | async) as mails">
+
+    <div class="list-item" *ngFor="let mail of mails">
+
+      <div class="list-item-content">
+        <h3 class="list-header" *ngIf="mail.subject">{{mail.subject}}</h3>
+        <div class="list-text">
+          {{mail.text}}
+        </div>
+      </div>
+
+      <div>
+        <app-item-actions [actionsList]="mailActions"
+                          (actionEvent)="actionEventHandler($event, mail)"
+        >
+        </app-item-actions>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

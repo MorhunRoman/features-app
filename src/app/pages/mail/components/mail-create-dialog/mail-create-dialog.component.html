@@ -1,0 +1,104 @@
+<div class="dialog-content">
+
+  <h2 mat-dialog-title class="dialog-title">{{dialogData.action | titlecase}} Email</h2>
+
+  <div mat-dialog-content>
+
+    <ng-container [ngSwitch]="dialogData.action">
+
+      <ng-container *ngSwitchCase="dialogActions.CREATE">
+        <ng-container *ngTemplateOutlet="emailCreateTemplate"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="dialogActions.VIEW">
+        <ng-container *ngTemplateOutlet="emailViewTemplate"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <ng-container *ngTemplateOutlet="emailCreateTemplate"></ng-container>
+      </ng-container>
+
+
+    </ng-container>
+    <!--  <mat-form-field appearance="fill">-->
+    <!--    <mat-label>Favorite Animal</mat-label>-->
+    <!--    <input matInput [(ngModel)]="data.animal">-->
+    <!--  </mat-form-field>-->
+  </div>
+
+  <div class="dialog-actions">
+
+    <button mat-stroked-button color="warn"
+            (click)="close(dialogActions.CANCEL)"
+    >Cancel</button>
+    <button mat-stroked-button
+            color="primary"
+            *ngIf="dialogData.action === dialogActions.CREATE"
+            [disabled]="mailCreationForm.invalid"
+            (click)="createEmail()"
+    >Save</button>
+
+  </div>
+
+</div>
+
+
+<ng-template #emailViewTemplate>
+  <p class="view-item">
+    <span class="bold">Subject: </span>
+    <span>{{dialogData.item.subject}}</span>
+  </p>
+  <p>
+    <span class="bold" *ngIf="!!dialogData.item.from">From: </span>
+    <span>{{dialogData.item.from}}</span>
+  </p>
+  <p>
+    <span class="bold">Text: </span>
+    <span>{{dialogData.item.text}}</span>
+  </p>
+</ng-template>
+
+<ng-template #emailCreateTemplate>
+  <form [formGroup]="mailCreationForm" class="creation-mail-form">
+
+    <mat-form-field appearance="standard">
+      <mat-label>To</mat-label>
+      <input matInput formControlName="to">
+
+      <mat-error *ngIf="mailCreationForm.get('to').hasError('required')">
+        This field is required
+      </mat-error>
+
+      <mat-error *ngIf="mailCreationForm.get('to').hasError('maxlength')">
+        This field should be less then {{mailCreationForm.get('to')?.errors?.maxlength?.requiredLength}}
+      </mat-error>
+
+      <mat-error *ngIf="mailCreationForm.get('to').hasError('email')">
+        This field should be email
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Subject</mat-label>
+      <input matInput formControlName="subject">
+
+      <mat-error *ngIf="mailCreationForm.get('subject').hasError('maxlength')">
+        This field should be less then {{mailCreationForm.get('subject')?.errors?.maxlength?.requiredLength}}
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Text</mat-label>
+      <textarea matInput [rows]="textareaRowsValue" formControlName="text"></textarea>
+
+      <mat-error *ngIf="mailCreationForm.get('text').hasError('required')">
+        This field is required
+      </mat-error>
+
+    </mat-form-field>
+
+  </form>
+
+</ng-template>

@@ -1,1 +1,41 @@
 /* You can add global styles to this file, and also import other style files */
+@import "assets/styles/dialog-general-styles";
+
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.page-wrapper {
+  max-width: 100%;
+  padding: 10px 10px 0 10px;
+  margin: 0 auto;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #3333;
+  margin-bottom: 10px;
+  .list-header {
+    margin-bottom: 0;
+  }
+  &-content {
+    width: 70%;
+    white-space: normal;
+  }
+
+  &-actions {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+.bold {
+  font-weight: bold;
+}
