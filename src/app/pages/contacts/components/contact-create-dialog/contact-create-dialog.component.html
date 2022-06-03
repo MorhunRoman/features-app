@@ -1,0 +1,109 @@
+<div class="dialog-content">
+
+  <h2 mat-dialog-title class="dialog-title">{{dialogData.action | titlecase}} Contact</h2>
+
+  <div mat-dialog-content>
+
+    <ng-container [ngSwitch]="dialogData.action">
+
+      <ng-container *ngSwitchCase="dialogActions.CREATE">
+        <ng-container *ngTemplateOutlet="contactCreateTemplate"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="dialogActions.VIEW">
+        <ng-container *ngTemplateOutlet="contactViewTemplate"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <ng-container *ngTemplateOutlet="contactCreateTemplate"></ng-container>
+      </ng-container>
+
+
+    </ng-container>
+
+  </div>
+
+  <div class="dialog-actions">
+
+    <button mat-stroked-button color="warn"
+            (click)="close(dialogActions.CANCEL)"
+    >Cancel</button>
+    <button mat-stroked-button
+            color="primary"
+            *ngIf="dialogData.action === dialogActions.CREATE"
+            [disabled]="creationForm.invalid"
+            (click)="createItem()"
+    >Save</button>
+
+  </div>
+
+</div>
+
+<ng-template #contactCreateTemplate>
+  <form [formGroup]="creationForm" class="contact-form">
+
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name">
+
+      <mat-error *ngIf="creationForm.get('name').hasError('required')">
+        This field is required
+      </mat-error>
+
+      <mat-error *ngIf="creationForm.get('name').hasError('maxlength')">
+        This field should be less then {{creationForm.get('to')?.errors?.maxlength?.requiredLength}}
+      </mat-error>
+
+      <mat-error *ngIf="creationForm.get('name').hasError('pattern')">
+        This field should have at least 1 letter
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="surname">
+
+      <mat-error *ngIf="creationForm.get('name').hasError('maxlength')">
+        This field should be less then {{creationForm.get('to')?.errors?.maxlength?.requiredLength}}
+      </mat-error>
+
+      <mat-error *ngIf="creationForm.get('name').hasError('pattern')">
+        This field should have at least 1 letter
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Phone number</mat-label>
+      <app-tel-input formControlName="phone" required></app-tel-input>
+
+      <mat-error *ngIf="creationForm.get('phone').hasError('required')">
+        This field is required
+      </mat-error>
+    </mat-form-field>
+
+
+
+  </form>
+</ng-template>
+
+
+<ng-template #contactViewTemplate>
+
+  <div class="contact-name info-block">
+    <span class="bold">Name: </span>
+    <span>{{dialogData.item.name}}</span>
+  </div>
+
+  <div class="contact-surname info-block" *ngIf="dialogData.item.surname">
+    <span class="bold">Surname: </span>
+    <span>Surname: {{dialogData.item.surname}}</span>
+  </div>
+
+  <div class="contact-phone-number info-block">
+    <span class="bold">Phone: </span>
+    <span>{{dialogData.item.formattedPhone}}</span>
+  </div>
+
+</ng-template>
