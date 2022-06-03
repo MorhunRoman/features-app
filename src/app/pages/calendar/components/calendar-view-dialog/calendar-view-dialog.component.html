@@ -1,0 +1,96 @@
+<div class="dialog-content">
+  <h2 mat-dialog-title class="dialog-title">{{dialogData.action | titlecase}} Event</h2>
+
+  <div mat-dialog-content>
+    <ng-container [ngSwitch]="dialogData.action">
+
+      <ng-container *ngSwitchCase="dialogActions.CREATE">
+        <ng-container *ngTemplateOutlet="eventCreateTemplate"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="dialogActions.VIEW">
+        <ng-container *ngTemplateOutlet="eventViewTemplate"></ng-container>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <ng-container *ngTemplateOutlet="eventCreateTemplate"></ng-container>
+      </ng-container>
+
+
+    </ng-container>
+  </div>
+
+  <div class="dialog-actions">
+
+    <button mat-stroked-button color="warn"
+            (click)="close(dialogActions.CANCEL)"
+    >Cancel</button>
+    <button mat-stroked-button
+            color="primary"
+            *ngIf="dialogData.action === dialogActions.CREATE"
+            [disabled]="creationForm.invalid"
+            (click)="createItem()"
+    >Save</button>
+
+  </div>
+
+</div>
+
+<ng-template #eventCreateTemplate>
+  <form [formGroup]="creationForm" class="calendar-form">
+
+    <mat-form-field>
+      <mat-label>Event Name</mat-label>
+      <input matInput formControlName="eventName">
+
+      <mat-error *ngIf="creationForm.get('eventName').hasError('required')">
+        This field is required
+      </mat-error>
+
+      <mat-error *ngIf="creationForm.get('eventName').hasError('maxlength')">
+        This field should be less then {{creationForm.get('to')?.errors?.maxlength?.requiredLength}}
+      </mat-error>
+
+      <mat-error *ngIf="creationForm.get('eventName').hasError('pattern')">
+        This field should have at least 1 letter
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Event Description</mat-label>
+      <input matInput formControlName="eventDesc">
+
+      <mat-error *ngIf="creationForm.get('eventDesc').hasError('maxlength')">
+        This field should be less then {{creationForm.get('to')?.errors?.maxlength?.requiredLength}}
+      </mat-error>
+
+      <mat-error *ngIf="creationForm.get('eventDesc').hasError('pattern')">
+        This field should have at least 1 letter
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [matDatepicker]="myDatepicker" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #myDatepicker></mat-datepicker>
+    </mat-form-field>
+
+  </form>
+</ng-template>
+
+<ng-template #eventViewTemplate>
+  <div class="event-name info-block">
+    <span class="bold">Event Name: </span>
+    <span>{{dialogData.item.eventName}}</span>
+  </div>
+  <div class="event-desc info-block" *ngIf="dialogData.item.eventDesc">
+    <span class="bold">Event Description: </span>
+    <span>{{dialogData.item.eventDesc}}</span>
+  </div>
+  <div class="event-date info-block">
+    <span class="bold">Date: </span>
+    <span>{{dialogData.item.date | date}}</span>
+  </div>
+</ng-template>

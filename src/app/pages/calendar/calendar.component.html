@@ -1,1 +1,31 @@
-<p>calendar works!</p>
+<div class="calendar-page">
+  <app-page-header [headerText]="'Calendar'"
+                   [headerActionText]="'Create'"
+                   (headerActionEvent)="openViewModal(modalActions.CREATE)"
+  >
+  </app-page-header>
+
+  <div class="items-list" *ngIf="(eventsList$ | async) as calendarEvents">
+
+    <div class='list-item' *ngFor="let calendarEvent of calendarEvents">
+
+      <div class="list-item-content">
+        <div class="event-name">{{calendarEvent.eventName}}</div>
+        <div class="event-desc" *ngIf="calendarEvent.eventDesc">{{calendarEvent.eventDesc}}</div>
+        <div class="event-date">{{calendarEvent.date | date}}</div>
+        <div></div>
+      </div>
+
+      <div class="list-item-actions">
+        <app-item-actions [actionsList]="listItemActions"
+                          (actionEvent)="actionEventHandler($event, calendarEvent)"
+        >
+        </app-item-actions>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>

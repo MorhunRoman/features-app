@@ -24,7 +24,6 @@ export class ContactCreateDialogComponent extends BaseDialogComponent implements
   }
 
   ngOnInit(): void {
-    console.log(this.dialogData);
     if(this.dialogData.action === this.dialogActions.CREATE) {
       this.generateCreationForm();
     }

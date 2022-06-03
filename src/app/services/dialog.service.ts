@@ -3,9 +3,7 @@ import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog
 import {ComponentType} from "@angular/cdk/portal";
 import {DialogActions, DialogDataInterface} from "../shared/models/dialogs/dialog-data.interface";
 
-@Injectable({
-  providedIn: "root"
-  })
+@Injectable()
 export class DialogService {
 
   private baseDialogConfig: MatDialogConfig = {
