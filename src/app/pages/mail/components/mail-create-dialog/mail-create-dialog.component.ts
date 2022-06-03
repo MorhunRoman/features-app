@@ -1,17 +1,18 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject, OnInit} from '@angular/core';
 import {BaseDialogComponent} from "../../../../components/dialogs/base-dialog/base-dialog.component";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DialogDataInterface} from "../../../../shared/models/dialogs/dialog-data.interface";
 import {MailItemInterface} from "../../../../shared/models/mails/mail-item.interface";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {DialogViewItemInterface} from "../../../../shared/models/dialogs/dialog-view-item.interface";
+import {DialogCreateItemInterface} from "../../../../shared/models/dialogs/dialog-create-item.interface";
 
 @Component({
   selector: 'app-mail-edit-modal',
   templateUrl: './mail-create-dialog.component.html',
-  styleUrls: ['./mail-create-dialog.component.scss']
+  styleUrls: ['./mail-create-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MailCreateDialogComponent extends BaseDialogComponent implements OnInit, DialogViewItemInterface {
+export class MailCreateDialogComponent extends BaseDialogComponent implements OnInit, DialogCreateItemInterface {
 
   public creationForm: FormGroup;
 
@@ -46,7 +47,5 @@ export class MailCreateDialogComponent extends BaseDialogComponent implements On
       this.close<MailItemInterface>(this.dialogActions.APPROVE, {...this.creationForm.value});
     }
   }
-
-
 
 }

@@ -4,7 +4,7 @@ import {DialogDataInterface} from "../../../../shared/models/dialogs/dialog-data
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ContactItemInterface} from "../../../../shared/models/contacts/contact-item.interface";
 import {BaseDialogComponent} from "../../../../components/dialogs/base-dialog/base-dialog.component";
-import {DialogViewItemInterface} from "../../../../shared/models/dialogs/dialog-view-item.interface";
+import {DialogCreateItemInterface} from "../../../../shared/models/dialogs/dialog-create-item.interface";
 import {MailItemInterface} from "../../../../shared/models/mails/mail-item.interface";
 
 @Component({
@@ -13,7 +13,7 @@ import {MailItemInterface} from "../../../../shared/models/mails/mail-item.inter
   styleUrls: ['./contact-create-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactCreateDialogComponent extends BaseDialogComponent implements OnInit, DialogViewItemInterface {
+export class ContactCreateDialogComponent extends BaseDialogComponent implements OnInit, DialogCreateItemInterface {
 
   creationForm: FormGroup;
 

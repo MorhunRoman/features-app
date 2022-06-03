@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {BaseDialogComponent} from "../../../../components/dialogs/base-dialog/base-dialog.component";
-import {DialogViewItemInterface} from "../../../../shared/models/dialogs/dialog-view-item.interface";
+import {DialogCreateItemInterface} from "../../../../shared/models/dialogs/dialog-create-item.interface";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DialogDataInterface} from "../../../../shared/models/dialogs/dialog-data.interface";
@@ -8,12 +8,14 @@ import {CalendarItemInterface} from "../../../../shared/models/calendar/calendar
 
 @Component({
   selector: 'app-calendar-view-dialog',
-  templateUrl: './calendar-view-dialog.component.html',
-  styleUrls: ['./calendar-view-dialog.component.scss']
+  templateUrl: './calendar-create-dialog.component.html',
+  styleUrls: ['./calendar-create-dialog.component.scss']
 })
-export class CalendarViewDialogComponent extends BaseDialogComponent implements OnInit, DialogViewItemInterface {
+export class CalendarCreateDialogComponent extends BaseDialogComponent implements OnInit, DialogCreateItemInterface {
 
-  constructor(private modalRef: MatDialogRef<CalendarViewDialogComponent>,
+  creationForm: FormGroup;
+
+  constructor(private modalRef: MatDialogRef<CalendarCreateDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public dialogData: DialogDataInterface<CalendarItemInterface>,
               private formBuilder: FormBuilder) {
     super(modalRef, dialogData);
@@ -24,8 +26,6 @@ export class CalendarViewDialogComponent extends BaseDialogComponent implements 
       this.generateCreationForm();
     }
   }
-
-  creationForm: FormGroup;
 
   createItem(): void {
     if(this.creationForm.valid) {

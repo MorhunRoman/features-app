@@ -24,15 +24,12 @@ export class MailComponent implements OnInit, PageItemInterface<MailItemInterfac
     {label: 'View', colorScheme: 'primary', action: DialogActions.VIEW}
   ];
 
-
   constructor(private mailService: MailService, private dialogService: DialogService) {
   }
 
   ngOnInit(): void {
     this.mailsList$ = this.mailService.mailsList;
   }
-
-
 
   public actionEventHandler(action: DialogActions, mailItem: MailItemInterface): void {
     switch (action) {

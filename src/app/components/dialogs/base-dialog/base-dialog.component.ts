@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {DialogActions, DialogDataInterface} from "../../../shared/models/dialogs/dialog-data.interface";
 
@@ -7,7 +7,7 @@ import {DialogActions, DialogDataInterface} from "../../../shared/models/dialogs
   template: ''
 })
 
-export class BaseDialogComponent<T = DialogDataInterface> implements OnInit {
+export class BaseDialogComponent<T = DialogDataInterface> {
 
   public dialogActions = DialogActions;
   public textareaRowsValue = 5;
@@ -15,13 +15,8 @@ export class BaseDialogComponent<T = DialogDataInterface> implements OnInit {
   constructor(public dialogRef: MatDialogRef<BaseDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public dialogData: T) { }
 
-  ngOnInit(): void {
-
-  }
-
   public close<T = null>(action: DialogActions, dialogResponse?: T): void {
     this.dialogRef.close({action, ...(!!dialogResponse && {item: dialogResponse})});
   }
-
 
 }

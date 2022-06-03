@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {CalendarComponent} from "./calendar.component";
 import {RouterModule, Routes} from "@angular/router";
-import { CalendarViewDialogComponent } from './components/calendar-view-dialog/calendar-view-dialog.component';
+import { CalendarCreateDialogComponent } from './components/calendar-create-dialog/calendar-create-dialog.component';
 import {DialogService} from "../../services/dialog.service";
 import {PageHeaderModule} from "../../shared/components/page-header/page-header.module";
 import {ItemActionsModule} from "../../shared/components/item-actions/item-actions.module";
@@ -37,7 +37,7 @@ const routes: Routes = [
   ],
   declarations: [
     CalendarComponent,
-    CalendarViewDialogComponent
+    CalendarCreateDialogComponent
   ],
   providers: [
     DialogService

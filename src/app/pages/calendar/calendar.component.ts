@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 import {CalendarService} from "../../services/calendar.service";
 import {take, tap} from "rxjs/operators";
 import {DialogService} from "../../services/dialog.service";
-import {CalendarViewDialogComponent} from "./components/calendar-view-dialog/calendar-view-dialog.component";
+import {CalendarCreateDialogComponent} from "./components/calendar-create-dialog/calendar-create-dialog.component";
 
 @Component({
   selector: 'app-calendar',
@@ -49,7 +49,7 @@ export class CalendarComponent implements OnInit, PageItemInterface<CalendarItem
 
   openViewModal(action: DialogActions, item?: CalendarItemInterface): void {
     const dialogConfig = this.dialogService.generateViewDialogConfig<CalendarItemInterface>(action, item);
-    this.dialogService.openModal<CalendarViewDialogComponent>(CalendarViewDialogComponent, dialogConfig).afterClosed()
+    this.dialogService.openModal<CalendarCreateDialogComponent>(CalendarCreateDialogComponent, dialogConfig).afterClosed()
       .pipe(
         take(1),
         tap((dialogResponse:  DialogDataInterface<CalendarItemInterface>) => {
