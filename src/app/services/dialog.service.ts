@@ -1,12 +1,14 @@
 import { Injectable, TemplateRef } from "@angular/core";
 import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material/dialog';
 import {ComponentType} from "@angular/cdk/portal";
-import {DialogDataInterface} from "../shared/models/modals/dialog-data.interface";
+import {DialogActions, DialogDataInterface} from "../shared/models/dialogs/dialog-data.interface";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+  })
 export class DialogService {
 
-  public dialogBaseConfig: MatDialogConfig = {
+  private baseDialogConfig: MatDialogConfig = {
     width: '80%',
     maxWidth: '768px'
   }
@@ -14,7 +16,7 @@ export class DialogService {
   constructor(private dialog: MatDialog) {
   }
 
-  openModal<T,R = DialogDataInterface>(component: ComponentType<T> | TemplateRef<T>, matDialogConfig: MatDialogConfig<R>): MatDialogRef<T> {
+  public openModal<T,R = DialogDataInterface>(component: ComponentType<T> | TemplateRef<T>, matDialogConfig: MatDialogConfig<R>): MatDialogRef<T> {
     return this.dialog.open(component, matDialogConfig);
   }
 
@@ -22,6 +24,16 @@ export class DialogService {
     const importedModule = await import('../shared/dialogs/confirm-dialog/confirm-dialog.module');
     const confirmDialogComponent = importedModule.ConfirmDialogModule.getComponent();
     return this.openModal<InstanceType<typeof confirmDialogComponent>>(confirmDialogComponent, dialogConfig);
+  }
+
+  public generateViewDialogConfig<T = null>(action?: DialogActions, item?: T): MatDialogConfig<DialogDataInterface<T>> {
+    return {
+      ...this.baseDialogConfig,
+      data: {
+      ...(!!action) && {action},
+      ...(!!item) && {item: item}
+      }
+    }
   }
 
 

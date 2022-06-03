@@ -20,10 +20,7 @@
 
 
     </ng-container>
-    <!--  <mat-form-field appearance="fill">-->
-    <!--    <mat-label>Favorite Animal</mat-label>-->
-    <!--    <input matInput [(ngModel)]="data.animal">-->
-    <!--  </mat-form-field>-->
+
   </div>
 
   <div class="dialog-actions">
@@ -34,8 +31,8 @@
     <button mat-stroked-button
             color="primary"
             *ngIf="dialogData.action === dialogActions.CREATE"
-            [disabled]="mailCreationForm.invalid"
-            (click)="createEmail()"
+            [disabled]="creationForm.invalid"
+            (click)="createItem()"
     >Save</button>
 
   </div>
@@ -59,21 +56,21 @@
 </ng-template>
 
 <ng-template #emailCreateTemplate>
-  <form [formGroup]="mailCreationForm" class="creation-mail-form">
+  <form [formGroup]="creationForm" class="creation-mail-form">
 
     <mat-form-field appearance="standard">
       <mat-label>To</mat-label>
       <input matInput formControlName="to">
 
-      <mat-error *ngIf="mailCreationForm.get('to').hasError('required')">
+      <mat-error *ngIf="creationForm.get('to').hasError('required')">
         This field is required
       </mat-error>
 
-      <mat-error *ngIf="mailCreationForm.get('to').hasError('maxlength')">
-        This field should be less then {{mailCreationForm.get('to')?.errors?.maxlength?.requiredLength}}
+      <mat-error *ngIf="creationForm.get('to').hasError('maxlength')">
+        This field should be less then {{creationForm.get('to')?.errors?.maxlength?.requiredLength}}
       </mat-error>
 
-      <mat-error *ngIf="mailCreationForm.get('to').hasError('email')">
+      <mat-error *ngIf="creationForm.get('to').hasError('email')">
         This field should be email
       </mat-error>
 
@@ -83,8 +80,8 @@
       <mat-label>Subject</mat-label>
       <input matInput formControlName="subject">
 
-      <mat-error *ngIf="mailCreationForm.get('subject').hasError('maxlength')">
-        This field should be less then {{mailCreationForm.get('subject')?.errors?.maxlength?.requiredLength}}
+      <mat-error *ngIf="creationForm.get('subject').hasError('maxlength')">
+        This field should be less then {{creationForm.get('subject')?.errors?.maxlength?.requiredLength}}
       </mat-error>
 
     </mat-form-field>
@@ -93,7 +90,7 @@
       <mat-label>Text</mat-label>
       <textarea matInput [rows]="textareaRowsValue" formControlName="text"></textarea>
 
-      <mat-error *ngIf="mailCreationForm.get('text').hasError('required')">
+      <mat-error *ngIf="creationForm.get('text').hasError('required')">
         This field is required
       </mat-error>
 

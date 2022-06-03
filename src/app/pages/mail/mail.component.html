@@ -1,10 +1,9 @@
 <div class="mail-page">
-  <div class="mail-header">
-    <h2 class="mail-header-text">Mails</h2>
-    <div class="mail-header-action">
-      <button mat-stroked-button color="accent" (click)="openViewMailModal(modalActions.CREATE)">Create</button>
-    </div>
-  </div>
+  <app-page-header [headerText]="'Mails'"
+                   [headerActionText]="'Create'"
+                   (headerActionEvent)="openViewModal(modalActions.CREATE)"
+  >
+  </app-page-header>
 
   <div class="items-list" *ngIf="(mailsList$ | async) as mails">
 
@@ -18,7 +17,7 @@
       </div>
 
       <div>
-        <app-item-actions [actionsList]="mailActions"
+        <app-item-actions [actionsList]="listItemActions"
                           (actionEvent)="actionEventHandler($event, mail)"
         >
         </app-item-actions>

@@ -1,18 +1,18 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {DialogActions, DialogDataInterface} from "../../../shared/models/modals/dialog-data.interface";
+import {DialogActions, DialogDataInterface} from "../../../shared/models/dialogs/dialog-data.interface";
 
 @Component({
-  selector: 'app-base-modal',
+  selector: 'app-base-dialog',
   template: ''
 })
 
-export class BaseModalComponent<T = DialogDataInterface> implements OnInit {
+export class BaseDialogComponent<T = DialogDataInterface> implements OnInit {
 
   public dialogActions = DialogActions;
   public textareaRowsValue = 5;
 
-  constructor(public dialogRef: MatDialogRef<BaseModalComponent>,
+  constructor(public dialogRef: MatDialogRef<BaseDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public dialogData: T) { }
 
   ngOnInit(): void {

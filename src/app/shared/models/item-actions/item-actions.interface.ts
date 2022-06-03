@@ -1,4 +1,4 @@
-import {DialogActions} from "../modals/dialog-data.interface";
+import {DialogActions} from "../dialogs/dialog-data.interface";
 
 export interface ItemActionsInterface {
   label: string,

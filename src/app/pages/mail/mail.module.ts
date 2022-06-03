@@ -5,12 +5,13 @@ import {RouterModule, Routes} from "@angular/router";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 import { MailCreateDialogComponent } from './components/mail-create-dialog/mail-create-dialog.component';
-import {BaseModalModule} from "../../components/modals/base-modal/base-modal.module";
-import {DialogService} from "../../services/dialog.service";
+import {BaseDialogModule} from "../../components/dialogs/base-dialog/base-dialog.module";
 import {ItemActionsModule} from "../../shared/components/item-actions/item-actions.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
+import {PageHeaderModule} from "../../shared/components/page-header/page-header.module";
+import {DialogService} from "../../services/dialog.service";
 
 const routes: Routes = [
   {
@@ -23,13 +24,14 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    BaseModalModule,
+    BaseDialogModule,
     MatListModule,
     MatButtonModule,
     ItemActionsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    PageHeaderModule,
   ],
   declarations: [
     MailComponent,

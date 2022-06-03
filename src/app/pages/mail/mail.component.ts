@@ -5,26 +5,28 @@ import {MailItemInterface} from "../../shared/models/mails/mail-item.interface";
 import {DialogService} from "../../services/dialog.service";
 import {MailCreateDialogComponent} from "./components/mail-create-dialog/mail-create-dialog.component";
 import {switchMap, take, tap} from "rxjs/operators";
-import {DialogActions, DialogDataInterface} from "../../shared/models/modals/dialog-data.interface";
+import {DialogActions, DialogDataInterface} from "../../shared/models/dialogs/dialog-data.interface";
 import {MatDialogConfig} from "@angular/material/dialog";
 import {ItemActionsInterface} from "../../shared/models/item-actions/item-actions.interface";
+import {PageItemInterface} from "../../shared/models/page-item/page-item.interface";
 
 @Component({
   selector: 'app-mail',
   templateUrl: './mail.component.html',
   styleUrls: ['./mail.component.scss']
 })
-export class MailComponent implements OnInit {
+export class MailComponent implements OnInit, PageItemInterface<MailItemInterface> {
 
   public modalActions = DialogActions;
   public mailsList$: Observable<MailItemInterface[]>;
-  public mailActions: ItemActionsInterface[] = [
+  public listItemActions: ItemActionsInterface[] = [
     {label: 'Delete', colorScheme: 'warn', action: DialogActions.DELETE},
     {label: 'View', colorScheme: 'primary', action: DialogActions.VIEW}
   ];
 
 
-  constructor(private mailService: MailService, private dialogService: DialogService) { }
+  constructor(private mailService: MailService, private dialogService: DialogService) {
+  }
 
   ngOnInit(): void {
     this.mailsList$ = this.mailService.mailsList;
@@ -32,21 +34,20 @@ export class MailComponent implements OnInit {
 
 
 
-  actionEventHandler(action: DialogActions, mailItem: MailItemInterface) {
+  public actionEventHandler(action: DialogActions, mailItem: MailItemInterface): void {
     switch (action) {
       case DialogActions.VIEW: {
-        this.openViewMailModal(action, mailItem);
+        this.openViewModal(action, mailItem);
         break;
       }
       case DialogActions.DELETE: {
-        this.deleteMail(mailItem.id);
-        // this.deleteMail(mailItem.id);
+        this.deleteItem(mailItem.id);
         break;
       }
     }
   }
 
-  deleteMail(mailId: number) {
+  deleteItem(id: number): void {
     const dialogConfig: MatDialogConfig<{ label: string }> = {
       data: {
         label: 'Delete this mail?'
@@ -60,20 +61,14 @@ export class MailComponent implements OnInit {
       take(1),
       tap((dialogResponse) => {
         if(dialogResponse && dialogResponse.action === DialogActions.APPROVE) {
-          this.mailService.deleteMail(mailId);
+          this.mailService.deleteMail(id);
         }
       })
     ).subscribe();
   }
 
-  openViewMailModal(action: DialogActions, mailItem?: MailItemInterface) {
-    const dialogConfig: MatDialogConfig<DialogDataInterface> = {
-      ...this.dialogService.dialogBaseConfig,
-      data: {
-        action,
-        ...(!!mailItem) && {item: mailItem}
-      }
-    };
+  public openViewModal(action: DialogActions, mailItem?: MailItemInterface): void {
+    const dialogConfig = this.dialogService.generateViewDialogConfig<MailItemInterface>(action, mailItem);
     this.dialogService.openModal<MailCreateDialogComponent>(MailCreateDialogComponent, dialogConfig).afterClosed()
       .pipe(
         take(1),

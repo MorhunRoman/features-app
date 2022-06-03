@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {DialogActions} from "../../models/modals/dialog-data.interface";
+import {DialogActions} from "../../models/dialogs/dialog-data.interface";
 import {ItemActionsInterface} from "../../models/item-actions/item-actions.interface";
 
 @Component({

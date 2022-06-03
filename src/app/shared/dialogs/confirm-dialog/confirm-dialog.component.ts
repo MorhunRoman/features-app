@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
-import {BaseModalComponent} from "../../../components/modals/base-modal/base-modal.component";
+import {BaseDialogComponent} from "../../../components/dialogs/base-dialog/base-dialog.component";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
@@ -8,7 +8,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./confirm-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ConfirmDialogComponent extends BaseModalComponent  {
+export class ConfirmDialogComponent extends BaseDialogComponent  {
 
   constructor(private modalRef: MatDialogRef<ConfirmDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public dialogData: {label: string}) {

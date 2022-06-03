@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {BaseModalComponent} from "./base-modal.component";
+import {BaseDialogComponent} from "./base-dialog.component";
 import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
@@ -9,13 +9,13 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatDialogModule,
   ],
   declarations: [
-    BaseModalComponent
+    BaseDialogComponent
   ],
   exports: [
-    BaseModalComponent,
+    BaseDialogComponent,
     MatDialogModule
   ]
 })
-export class BaseModalModule {
+export class BaseDialogModule {
 
 }
