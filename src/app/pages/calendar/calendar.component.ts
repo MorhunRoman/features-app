@@ -5,8 +5,6 @@ import {ItemActionsInterface} from "../../shared/models/item-actions/item-action
 import {DialogActions, DialogDataInterface} from "../../shared/models/dialogs/dialog-data.interface";
 import {Observable} from "rxjs";
 import {CalendarService} from "../../services/calendar.service";
-import {ContactItemInterface} from "../../shared/models/contacts/contact-item.interface";
-import {ContactCreateDialogComponent} from "../contacts/components/contact-create-dialog/contact-create-dialog.component";
 import {take, tap} from "rxjs/operators";
 import {DialogService} from "../../services/dialog.service";
 import {CalendarViewDialogComponent} from "./components/calendar-view-dialog/calendar-view-dialog.component";
@@ -63,16 +61,3 @@ export class CalendarComponent implements OnInit, PageItemInterface<CalendarItem
   }
 
 }
-
-// openViewModal(action: DialogActions, contactItem?: ContactItemInterface): void {
-//   const dialogConfig = this.dialogService.generateViewDialogConfig<ContactItemInterface>(action, contactItem);
-//   this.dialogService.openModal<ContactCreateDialogComponent>(ContactCreateDialogComponent, dialogConfig).afterClosed()
-//     .pipe(
-//       take(1),
-//       tap((dialogResponse: DialogDataInterface<ContactItemInterface>) => {
-//         if(!!dialogResponse && dialogResponse.action === DialogActions.APPROVE) {
-//           this.contactsService.createContact(dialogResponse.item);
-//         }
-//       })
-//     ).subscribe();
-// }
